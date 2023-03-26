@@ -31,7 +31,7 @@ import tensorflow.compat.v2 as tf
 from object_detection import model_lib_v2
 import os
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1" #added
+#os.environ["CUDA_VISIBLE_DEVICES"] = "-1" #added
 
 flags.DEFINE_string('pipeline_config_path', None, 'Path to pipeline config '
                     'file.')
@@ -111,7 +111,7 @@ def main(unused_argv):
           train_steps=FLAGS.num_train_steps,
           use_tpu=FLAGS.use_tpu,
           checkpoint_every_n=FLAGS.checkpoint_every_n,
-          checkpoint_max_to_keep=50, #added
+          checkpoint_max_to_keep=100, #added
           record_summaries=FLAGS.record_summaries)
 
 if __name__ == '__main__':
