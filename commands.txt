@@ -1,9 +1,9 @@
 partitioning:
-	python partition_dataset.py -x -i "../../../images/resized" -o "../../../images" -r 0.2 [im script ordner] -> Warnung normal
+	python partition_dataset.py -x -i "../../../images/1/" -o "../../../images/1/" -r 0.2
 
 create datasets:
-	python generate_tfrecord.py -x "../../../images/train" -l "../../workspace/train/annotations/label_map.pbtxt" -o "../../workspace/train/annotations/train.record"
-	python generate_tfrecord.py -x "../../../images/test" -l "../../workspace/train/annotations/label_map.pbtxt" -o "../../workspace/train/annotations/test.record"
+	python generate_tfrecord.py -x "../../../images/1/train" -l "../../workspace/train/annotations/label_map.pbtxt" -o "../../workspace/train/annotations/train.record"
+	python generate_tfrecord.py -x "../../../images/1/validation" -l "../../workspace/train/annotations/label_map.pbtxt" -o "../../workspace/train/annotations/validation.record"
 
 training:
 	python model_main_tf2.py --model_dir=../../workspace/train/models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8 --pipeline_config_path=../../workspace/train/models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8/pipeline.config --alsologtostderr
