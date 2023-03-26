@@ -1,0 +1,24 @@
+partitioning:
+	python partition_dataset.py -x -i "../../../images/resized" -o "../../../images" -r 0.2 [im script ordner] -> Warnung normal
+
+create datasets:
+	python generate_tfrecord.py -x "../../../images/train" -l "../../workspace/train/annotations/label_map.pbtxt" -o "../../workspace/train/annotations/train.record"
+	python generate_tfrecord.py -x "../../../images/test" -l "../../workspace/train/annotations/label_map.pbtxt" -o "../../workspace/train/annotations/test.record"
+
+training:
+	python model_main_tf2.py --model_dir=../../workspace/train/models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8 --pipeline_config_path=../../workspace/train/models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8/pipeline.config --alsologtostderr
+
+evaluation:
+	python model_main_tf2_eval.py --model_dir=../../workspace/train/models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8 --pipeline_config_path=../../workspace/train/models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8/pipeline.config --checkpoint_dir=../../workspace/train/models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8/ --alsologtostderr
+
+tensorboard
+	tensorboard --logdir=models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8
+
+export:
+	python exporter_main_v2.py --input_type image_tensor --pipeline_config_path ../../workspace/train/models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8/pipeline.config --trained_checkpoint_dir ../../workspace/train/models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8/ --output_directory ../../workspace/export/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8
+
+export tflite:
+	python export_tflite_graph_tf2.py --pipeline_config_path ../../workspace/train/models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8/pipeline.config --trained_checkpoint_dir ../../workspace/train/models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8/ --output_directory ../../workspace/export/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8
+
+convert to tflite:
+	tflite_convert --saved_model_dir ../../workspace/export/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8/saved_model/ --output_file ../../workspace/export/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8/saved_model/model.tflite

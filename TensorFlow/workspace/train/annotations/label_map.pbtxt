@@ -1,0 +1,19 @@
+item {
+    id: 1
+    name: 'PE-Deckel'
+}
+
+item {
+    id: 2
+    name: 'Kronkorken'
+}
+
+item {
+    id: 3
+    name: 'Zigarettenstummel'
+}
+
+item {
+    id: 4
+    name: 'Wertgegenstand'
+}
