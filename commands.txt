@@ -15,7 +15,7 @@ tensorboard
 	tensorboard --logdir=models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8
 
 export:
-	python exporter_main_v2.py --input_type image_tensor --pipeline_config_path ../../workspace/train/models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8/pipeline.config --trained_checkpoint_dir ../../workspace/train/models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8/ --output_directory ../../workspace/export/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8
+	python exporter_main_v2.py --input_type image_tensor --pipeline_config_path ../../workspace/train/models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8/pipeline.config --trained_checkpoint_dir ../../workspace/train/models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8/ --output_directory ../../workspace/export/2_ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8
 
 export tflite:
 	python export_tflite_graph_tf2.py --pipeline_config_path ../../workspace/train/models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8/pipeline.config --trained_checkpoint_dir ../../workspace/train/models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8/ --output_directory ../../workspace/export/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8
